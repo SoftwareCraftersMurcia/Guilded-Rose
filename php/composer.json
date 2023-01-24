@@ -2,26 +2,31 @@
     "name": "kata-setup/php",
     "description": "Initial code to start TDD katas",
     "require": {
-        "php": ">=7.4"
+        "php": "^8.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9",
-        "infection/codeception-adapter": "^0.4.1",
-        "infection/infection": "^0.26.14"
+        "phpstan/phpstan": "^1.9",
+        "phpstan/phpstan-phpunit": "^1.3",
+        "symplify/easy-coding-standard": "^11.1",
+        "symplify/phpstan-extensions": "^11.1"
     },
     "autoload": {
         "psr-4": {
-            "Kata\\": "src",
-            "KataTests\\": "tests"
+            "GildedRose\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
         }
     },
     "scripts": {
         "test": "./vendor/bin/phpunit",
         "test-coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html coverage",
-        "test-all": [
-            "XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html coverage",
-            "vendor/bin/infection --threads=4"
-        ]
+        "check-cs": "ecs check",
+        "fix-cs": "ecs check --fix",
+        "phpstan": "phpstan analyse --ansi"
     },
     "config": {
         "allow-plugins": {
