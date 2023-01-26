@@ -17,6 +17,7 @@ var mockKversion = "1.12.3"
 dependencies {
     testImplementation(kotlin("test"))
     testImplementation("io.mockk:mockk:$mockKversion")
+    testImplementation("com.approvaltests:approvaltests:18.5.0")
 }
 
 tasks.test {
