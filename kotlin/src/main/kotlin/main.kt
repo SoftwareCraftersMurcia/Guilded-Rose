@@ -34,5 +34,4 @@ fun main(args: Array<String>) {
         app.updateQuality()
     }
 
-
 }
