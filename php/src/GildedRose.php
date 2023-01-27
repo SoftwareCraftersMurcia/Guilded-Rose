@@ -24,23 +24,17 @@ final class GildedRose
         foreach ($this->items as $item) {
             if ($item->name != self::AGED_BRIE and $item->name != self::BACKSTAGE_PASSES) {
                 if ($item->quality > 0) {
-                    if ($item->name != self::SULFURAS) {
-                        $item->quality = $item->quality - 1;
-                    }
+                    $this->decreaseQualityToNonSulfurasItems($item);
                 }
             } else {
                 if ($item->quality < self::MAX_QUALITY) {
                     $item->quality = $item->quality + 1;
                     if ($item->name == self::BACKSTAGE_PASSES) {
                         if ($item->sellIn < 11) {
-                            if ($item->quality < self::MAX_QUALITY) {
-                                $item->quality = $item->quality + 1;
-                            }
+                            $this->increaseItemQualityByOne($item);
                         }
                         if ($item->sellIn < 6) {
-                            if ($item->quality < self::MAX_QUALITY) {
-                                $item->quality = $item->quality + 1;
-                            }
+                            $this->increaseItemQualityByOne($item);
                         }
                     }
                 }
@@ -54,19 +48,37 @@ final class GildedRose
                 if ($item->name != self::AGED_BRIE) {
                     if ($item->name != self::BACKSTAGE_PASSES) {
                         if ($item->quality > 0) {
-                            if ($item->name != self::SULFURAS) {
-                                $item->quality = $item->quality - 1;
-                            }
+                            $this->decreaseQualityToNonSulfurasItems($item);
                         }
                     } else {
                         $item->quality = $item->quality - $item->quality;
                     }
                 } else {
-                    if ($item->quality < self::MAX_QUALITY) {
-                        $item->quality = $item->quality + 1;
-                    }
+                    $this->increaseItemQualityByOne($item);
                 }
             }
+        }
+    }
+
+    /**
+     * @param Item $item
+     * @return void
+     */
+    public function increaseItemQualityByOne(Item $item): void
+    {
+        if ($item->quality < self::MAX_QUALITY) {
+            $item->quality = $item->quality + 1;
+        }
+    }
+
+    /**
+     * @param Item $item
+     * @return void
+     */
+    public function decreaseQualityToNonSulfurasItems(Item $item): void
+    {
+        if ($item->name != self::SULFURAS) {
+            $item->quality = $item->quality - 1;
         }
     }
 }
