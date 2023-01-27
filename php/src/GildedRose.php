@@ -23,14 +23,13 @@ final class GildedRose
 
     private function updateItemQuality(DecoratedItem $decoratedItem): void
     {
-        if (!$decoratedItem->isAged() && !$decoratedItem->isBackstage()) {
-            if (($decoratedItem->item->quality > 0) && !$decoratedItem->isSulfuras()) {
-                $decoratedItem->decrementQuality();
-            }
+        if ($decoratedItem->shouldDecrementQuality()) {
+            $decoratedItem->decrementQuality();
         } elseif ($decoratedItem->item->quality < 50) {
             $decoratedItem->incrementQuality();
+
             if ($decoratedItem->isBackstage()) {
-                if (($decoratedItem->item->sellIn < 11) && $decoratedItem->item->quality < 50) {
+                if ($decoratedItem->item->sellIn < 11 && $decoratedItem->item->quality < 50) {
                     $decoratedItem->incrementQuality();
                 }
                 if (($decoratedItem->item->sellIn < 6) && $decoratedItem->item->quality < 50) {
@@ -50,12 +49,12 @@ final class GildedRose
 
     private function negativeSellIn(DecoratedItem $decoratedItem): void
     {
+        if ($decoratedItem->shouldDecrementQuality()) {
+            $decoratedItem->decrementQuality();
+        }
+
         if (!$decoratedItem->isAged()) {
-            if (!$decoratedItem->isBackstage()) {
-                if (($decoratedItem->item->quality > 0) && !$decoratedItem->isSulfuras()) {
-                    $decoratedItem->decrementQuality();
-                }
-            } else {
+            if ($decoratedItem->isBackstage()) {
                 $decoratedItem->resetQuality();
             }
         } elseif ($decoratedItem->item->quality < 50) {

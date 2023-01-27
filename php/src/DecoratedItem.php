@@ -49,4 +49,12 @@ final class DecoratedItem
     {
         return $this->item->name === self::NAME_AGED;
     }
+
+    public function shouldDecrementQuality(): bool
+    {
+        return $this->item->quality > 0
+            && !$this->isAged()
+            && !$this->isBackstage()
+            && !$this->isSulfuras();
+    }
 }
