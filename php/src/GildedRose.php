@@ -44,7 +44,7 @@ final class GildedRose
         }
 
         if ($decoratedItem->item->name !== self::NAME_SULFURAS) {
-            --$decoratedItem->item->sellIn;
+            $decoratedItem->decreaseSellIn();
         }
 
         if ($decoratedItem->item->sellIn < 0) {

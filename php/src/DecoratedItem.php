@@ -31,4 +31,9 @@ final class DecoratedItem
     {
         $this->item->quality = 0;
     }
+
+    public function decreaseSellIn(): void
+    {
+        --$this->item->sellIn;
+    }
 }
