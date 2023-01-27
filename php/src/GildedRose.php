@@ -41,9 +41,7 @@ final class GildedRose
                 }
             }
 
-            if ($item->name != self::SULFURAS) {
-                $item->sellIn = $item->sellIn - 1;
-            }
+            $this->updateSellInToNonSulfurasItems($item);
 
             if ($item->sellIn < 0) {
                 if ($item->name != self::AGED_BRIE) {
@@ -80,6 +78,18 @@ final class GildedRose
     {
         if ($item->name != self::SULFURAS) {
             $item->quality = $item->quality - 1;
+        }
+    }
+
+    /**
+     * @param Item $item
+     *
+     * @return void
+     */
+    public function updateSellInToNonSulfurasItems(Item $item): void
+    {
+        if ($item->name != self::SULFURAS) {
+            $item->sellIn = $item->sellIn - 1;
         }
     }
 }
