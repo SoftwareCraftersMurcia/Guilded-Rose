@@ -31,14 +31,14 @@ class GildedRose(var items: Array<Item>) {
             }
 
             if (items[i].sellIn < 0) {
-                if (!isAgedBrie) {
-                    if (!isBackStage) {
-                        decreaseQuality(isSulfuras, items[i])
-                    } else {
-                        items[i].quality = items[i].quality - items[i].quality
-                    }
-                } else {
+                if (isAgedBrie) {
                     increaseQuality(items[i])
+                } else {
+                    if (isBackStage) {
+                        items[i].quality = items[i].quality - items[i].quality
+                    } else {
+                        decreaseQuality(isSulfuras, items[i])
+                    }
                 }
             }
         }
