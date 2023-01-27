@@ -21,43 +21,43 @@ final class GildedRose
         }
     }
 
-    private function updateItemQuality(DecoratedItem $decoratedItem): void
+    private function updateItemQuality(DecoratedItem $item): void
     {
-        if ($decoratedItem->shouldDecrementQuality()) {
-            $decoratedItem->decrementQuality();
-        } elseif ($decoratedItem->hasTooLowQuality()) {
-            $decoratedItem->incrementQuality();
-            if ($decoratedItem->isBackstage()) {
-                if ($decoratedItem->item->sellIn < 11 && $decoratedItem->hasTooLowQuality()) {
-                    $decoratedItem->incrementQuality();
+        if ($item->shouldDecrementQuality()) {
+            $item->decrementQuality();
+        } elseif ($item->hasTooLowQuality()) {
+            $item->incrementQuality();
+            if ($item->isBackstage()) {
+                if ($item->item->sellIn < 11 && $item->hasTooLowQuality()) {
+                    $item->incrementQuality();
                 }
-                if (($decoratedItem->item->sellIn < 6) && $decoratedItem->hasTooLowQuality()) {
-                    $decoratedItem->incrementQuality();
+                if (($item->item->sellIn < 6) && $item->hasTooLowQuality()) {
+                    $item->incrementQuality();
                 }
             }
         }
 
-        if (!$decoratedItem->isSulfuras()) {
-            $decoratedItem->decreaseSellIn();
+        if (!$item->isSulfuras()) {
+            $item->decreaseSellIn();
         }
 
-        if ($decoratedItem->item->sellIn < 0) {
-            $this->negativeSellIn($decoratedItem);
+        if ($item->item->sellIn < 0) {
+            $this->negativeSellIn($item);
         }
     }
 
-    private function negativeSellIn(DecoratedItem $decoratedItem): void
+    private function negativeSellIn(DecoratedItem $item): void
     {
-        if ($decoratedItem->shouldDecrementQuality()) {
-            $decoratedItem->decrementQuality();
+        if ($item->shouldDecrementQuality()) {
+            $item->decrementQuality();
         }
 
-        if ($decoratedItem->shouldResetQuality()) {
-            $decoratedItem->resetQuality();
+        if ($item->shouldResetQuality()) {
+            $item->resetQuality();
         }
 
-        if ($decoratedItem->hasTooLowQuality() && $decoratedItem->isAged()) {
-            $decoratedItem->incrementQuality();
+        if ($item->hasTooLowQuality() && $item->isAged()) {
+            $item->incrementQuality();
         }
     }
 }
