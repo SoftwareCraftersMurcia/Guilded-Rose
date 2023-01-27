@@ -10,6 +10,7 @@ final class GildedRose
     const BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert';
     const SULFURAS         = 'Sulfuras, Hand of Ragnaros';
     const MAX_QUALITY                = 50;
+    const MIN_QUALITY = 0;
 
     /**
      * @param Item[] $items
@@ -23,7 +24,7 @@ final class GildedRose
     {
         foreach ($this->items as $item) {
             if ($item->name != self::AGED_BRIE and $item->name != self::BACKSTAGE_PASSES) {
-                if ($item->quality > 0) {
+                if ($item->quality > self::MIN_QUALITY) {
                     $this->decreaseQualityToNonSulfurasItems($item);
                 }
             } else {
@@ -47,7 +48,7 @@ final class GildedRose
             if ($item->sellIn < 0) {
                 if ($item->name != self::AGED_BRIE) {
                     if ($item->name != self::BACKSTAGE_PASSES) {
-                        if ($item->quality > 0) {
+                        if ($item->quality > self::MIN_QUALITY) {
                             $this->decreaseQualityToNonSulfurasItems($item);
                         }
                     } else {
