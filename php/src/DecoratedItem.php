@@ -57,4 +57,10 @@ final class DecoratedItem
             && !$this->isBackstage()
             && !$this->isSulfuras();
     }
+
+    public function shouldResetQuality(): bool
+    {
+        return !$this->isAged()
+            && $this->isBackstage();
+    }
 }

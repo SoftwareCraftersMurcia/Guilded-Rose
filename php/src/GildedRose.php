@@ -27,7 +27,6 @@ final class GildedRose
             $decoratedItem->decrementQuality();
         } elseif ($decoratedItem->item->quality < 50) {
             $decoratedItem->incrementQuality();
-
             if ($decoratedItem->isBackstage()) {
                 if ($decoratedItem->item->sellIn < 11 && $decoratedItem->item->quality < 50) {
                     $decoratedItem->incrementQuality();
@@ -53,11 +52,11 @@ final class GildedRose
             $decoratedItem->decrementQuality();
         }
 
-        if (!$decoratedItem->isAged()) {
-            if ($decoratedItem->isBackstage()) {
-                $decoratedItem->resetQuality();
-            }
-        } elseif ($decoratedItem->item->quality < 50) {
+        if ($decoratedItem->shouldResetQuality()) {
+            $decoratedItem->resetQuality();
+        }
+
+        if ($decoratedItem->item->quality < 50 && $decoratedItem->isAged()) {
             $decoratedItem->incrementQuality();
         }
     }
