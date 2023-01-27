@@ -9,11 +9,7 @@ class GildedRose(var items: Array<Item>) {
             val isBackStage = items[i].name == "Backstage passes to a TAFKAL80ETC concert"
 
             if (!isAgedBrie && !isBackStage) {
-                if (items[i].quality > 0) {
-                    if (!isSulfuras) {
-                        items[i].quality = items[i].quality - 1
-                    }
-                }
+                decreaseQuality(isSulfuras, items[i])
             } else {
                 if (items[i].quality < 50) {
                     items[i].quality = items[i].quality + 1
@@ -37,17 +33,21 @@ class GildedRose(var items: Array<Item>) {
             if (items[i].sellIn < 0) {
                 if (!isAgedBrie) {
                     if (!isBackStage) {
-                        if (items[i].quality > 0) {
-                            if (!isSulfuras) {
-                                items[i].quality = items[i].quality - 1
-                            }
-                        }
+                        decreaseQuality(isSulfuras, items[i])
                     } else {
                         items[i].quality = items[i].quality - items[i].quality
                     }
                 } else {
                     increaseQuality(items[i])
                 }
+            }
+        }
+    }
+
+    private fun decreaseQuality(isSulfuras: Boolean, item: Item) {
+        if (item.quality > 0) {
+            if (!isSulfuras) {
+                item.quality = item.quality - 1
             }
         }
     }
