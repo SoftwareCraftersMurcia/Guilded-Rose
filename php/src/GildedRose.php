@@ -23,10 +23,12 @@ final class GildedRose
     public function updateQuality(): void
     {
         foreach ($this->items as $item) {
-            if ($this->agedProducts($item)) {
-                if ($item->quality > self::MIN_QUALITY) {
-                    $this->decreaseQualityToNonSulfurasItems($item);
-                }
+            if ($item->name === self::SULFURAS) {
+                continue;
+            }
+
+            if (!$this->agedProducts($item)) {
+                $this->decreaseQuality($item);
             } elseif ($item->quality < self::MAX_QUALITY) {
                 ++$item->quality;
                 if ($item->name == self::BACKSTAGE_PASSES) {
@@ -39,7 +41,7 @@ final class GildedRose
                 }
             }
 
-            $this->updateSellInToNonSulfurasItems($item);
+            $this->decreaseSellIn($item);
 
             if ($item->sellIn < 0) {
                 if ($item->name == self::AGED_BRIE) {
@@ -52,51 +54,32 @@ final class GildedRose
                     continue;
                 }
 
-                if ($item->quality > self::MIN_QUALITY) {
-                    $this->decreaseQualityToNonSulfurasItems($item);
-                }
+                $this->decreaseQuality($item);
             }
         }
     }
 
-    /**
-     * @param Item $item
-     *
-     * @return void
-     */
     public function increaseItemQualityByOne(Item $item): void
     {
         if ($item->quality < self::MAX_QUALITY) {
-            $item->quality = $item->quality + 1;
+            ++$item->quality;
         }
     }
 
-    /**
-     * @param Item $item
-     *
-     * @return void
-     */
-    public function decreaseQualityToNonSulfurasItems(Item $item): void
+    public function decreaseSellIn(Item $item): void
     {
-        if ($item->name != self::SULFURAS) {
-            $item->quality = $item->quality - 1;
-        }
-    }
-
-    /**
-     * @param Item $item
-     *
-     * @return void
-     */
-    public function updateSellInToNonSulfurasItems(Item $item): void
-    {
-        if ($item->name != self::SULFURAS) {
-            $item->sellIn = $item->sellIn - 1;
-        }
+            --$item->sellIn;
     }
 
     private function agedProducts(Item $item): bool
     {
-        return $item->name != self::AGED_BRIE and $item->name != self::BACKSTAGE_PASSES;
+        return $item->name === self::AGED_BRIE || $item->name === self::BACKSTAGE_PASSES;
+    }
+
+    public function decreaseQuality(Item $item): void
+    {
+        if ($item->quality > self::MIN_QUALITY) {
+            --$item->quality;
+        }
     }
 }
