@@ -6,6 +6,10 @@ namespace GildedRose;
 
 final class GildedRose
 {
+    private const NAME_SULFURAS = 'Sulfuras, Hand of Ragnaros';
+    private const NAME_BACKSTAGE = 'Backstage passes to a TAFKAL80ETC concert';
+    private const NAME_AGED = 'Aged Brie';
+
     /**
      * @param Item[] $items
      */
@@ -23,13 +27,13 @@ final class GildedRose
 
     private function updateItemQuality(Item $item): void
     {
-        if ($item->name !== 'Aged Brie' && $item->name !== 'Backstage passes to a TAFKAL80ETC concert') {
-            if (($item->quality > 0) && $item->name !== 'Sulfuras, Hand of Ragnaros') {
+        if ($item->name !== self::NAME_AGED && $item->name !== self::NAME_BACKSTAGE) {
+            if (($item->quality > 0) && $item->name !== self::NAME_SULFURAS) {
                 --$item->quality;
             }
         } elseif ($item->quality < 50) {
             ++$item->quality;
-            if ($item->name === 'Backstage passes to a TAFKAL80ETC concert') {
+            if ($item->name === self::NAME_BACKSTAGE) {
                 if (($item->sellIn < 11) && $item->quality < 50) {
                     ++$item->quality;
                 }
@@ -39,7 +43,7 @@ final class GildedRose
             }
         }
 
-        if ($item->name !== 'Sulfuras, Hand of Ragnaros') {
+        if ($item->name !== self::NAME_SULFURAS) {
             --$item->sellIn;
         }
 
@@ -50,9 +54,9 @@ final class GildedRose
 
     private function negativeSellIn(Item $item): void
     {
-        if ($item->name !== 'Aged Brie') {
-            if ($item->name !== 'Backstage passes to a TAFKAL80ETC concert') {
-                if (($item->quality > 0) && $item->name !== 'Sulfuras, Hand of Ragnaros') {
+        if ($item->name !== self::NAME_AGED) {
+            if ($item->name !== self::NAME_BACKSTAGE) {
+                if (($item->quality > 0) && $item->name !== self::NAME_SULFURAS) {
                     --$item->quality;
                 }
             } else {
