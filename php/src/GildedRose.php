@@ -23,20 +23,18 @@ final class GildedRose
     public function updateQuality(): void
     {
         foreach ($this->items as $item) {
-            if ($item->name != self::AGED_BRIE and $item->name != self::BACKSTAGE_PASSES) {
+            if ($this->agedProducts($item)) {
                 if ($item->quality > self::MIN_QUALITY) {
                     $this->decreaseQualityToNonSulfurasItems($item);
                 }
-            } else {
-                if ($item->quality < self::MAX_QUALITY) {
-                    $item->quality = $item->quality + 1;
-                    if ($item->name == self::BACKSTAGE_PASSES) {
-                        if ($item->sellIn < 11) {
-                            $this->increaseItemQualityByOne($item);
-                        }
-                        if ($item->sellIn < 6) {
-                            $this->increaseItemQualityByOne($item);
-                        }
+            } elseif ($item->quality < self::MAX_QUALITY) {
+                ++$item->quality;
+                if ($item->name == self::BACKSTAGE_PASSES) {
+                    if ($item->sellIn < 11) {
+                        $this->increaseItemQualityByOne($item);
+                    }
+                    if ($item->sellIn < 6) {
+                        $this->increaseItemQualityByOne($item);
                     }
                 }
             }
@@ -44,14 +42,18 @@ final class GildedRose
             $this->updateSellInToNonSulfurasItems($item);
 
             if ($item->sellIn < 0) {
-                if ($item->name != self::AGED_BRIE) {
-                    if ($item->name != self::BACKSTAGE_PASSES && $item->quality > self::MIN_QUALITY) {
-                        $this->decreaseQualityToNonSulfurasItems($item);
-                    } else {
-                        $item->quality = $item->quality - $item->quality;
-                    }
-                } else {
+                if ($item->name == self::AGED_BRIE) {
                     $this->increaseItemQualityByOne($item);
+                    continue;
+                }
+
+                if ($item->name == self::BACKSTAGE_PASSES) {
+                    $item->quality = self::MIN_QUALITY;
+                    continue;
+                }
+
+                if ($item->quality > self::MIN_QUALITY) {
+                    $this->decreaseQualityToNonSulfurasItems($item);
                 }
             }
         }
@@ -91,5 +93,10 @@ final class GildedRose
         if ($item->name != self::SULFURAS) {
             $item->sellIn = $item->sellIn - 1;
         }
+    }
+
+    private function agedProducts(Item $item): bool
+    {
+        return $item->name != self::AGED_BRIE and $item->name != self::BACKSTAGE_PASSES;
     }
 }
