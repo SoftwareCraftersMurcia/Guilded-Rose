@@ -50,7 +50,7 @@ final class GildedRose
                         --$item->quality;
                     }
                 } else {
-                    $item->quality -= $item->quality;
+                    $item->quality = 0;
                 }
             } elseif ($item->quality < 50) {
                 ++$item->quality;
