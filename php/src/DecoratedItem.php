@@ -63,4 +63,9 @@ final class DecoratedItem
         return !$this->isAged()
             && $this->isBackstage();
     }
+
+    public function hasTooLowQuality(): bool
+    {
+        return $this->item->quality < 50;
+    }
 }
