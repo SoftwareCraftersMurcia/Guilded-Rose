@@ -21,49 +21,49 @@ final class GildedRose
     public function updateQuality(): void
     {
         foreach ($this->items as $item) {
-            $this->updateItemQuality($item);
+            $this->updateItemQuality(new DecoratedItem($item));
         }
     }
 
-    private function updateItemQuality(Item $item): void
+    private function updateItemQuality(DecoratedItem $decoratedItem): void
     {
-        if ($item->name !== self::NAME_AGED && $item->name !== self::NAME_BACKSTAGE) {
-            if (($item->quality > 0) && $item->name !== self::NAME_SULFURAS) {
-                --$item->quality;
+        if ($decoratedItem->item->name !== self::NAME_AGED && $decoratedItem->item->name !== self::NAME_BACKSTAGE) {
+            if (($decoratedItem->item->quality > 0) && $decoratedItem->item->name !== self::NAME_SULFURAS) {
+                --$decoratedItem->item->quality;
             }
-        } elseif ($item->quality < 50) {
-            ++$item->quality;
-            if ($item->name === self::NAME_BACKSTAGE) {
-                if (($item->sellIn < 11) && $item->quality < 50) {
-                    ++$item->quality;
+        } elseif ($decoratedItem->item->quality < 50) {
+            ++$decoratedItem->item->quality;
+            if ($decoratedItem->item->name === self::NAME_BACKSTAGE) {
+                if (($decoratedItem->item->sellIn < 11) && $decoratedItem->item->quality < 50) {
+                    ++$decoratedItem->item->quality;
                 }
-                if (($item->sellIn < 6) && $item->quality < 50) {
-                    ++$item->quality;
+                if (($decoratedItem->item->sellIn < 6) && $decoratedItem->item->quality < 50) {
+                    ++$decoratedItem->item->quality;
                 }
             }
         }
 
-        if ($item->name !== self::NAME_SULFURAS) {
-            --$item->sellIn;
+        if ($decoratedItem->item->name !== self::NAME_SULFURAS) {
+            --$decoratedItem->item->sellIn;
         }
 
-        if ($item->sellIn < 0) {
-            $this->negativeSellIn($item);
+        if ($decoratedItem->item->sellIn < 0) {
+            $this->negativeSellIn($decoratedItem);
         }
     }
 
-    private function negativeSellIn(Item $item): void
+    private function negativeSellIn(DecoratedItem $decoratedItem): void
     {
-        if ($item->name !== self::NAME_AGED) {
-            if ($item->name !== self::NAME_BACKSTAGE) {
-                if (($item->quality > 0) && $item->name !== self::NAME_SULFURAS) {
-                    --$item->quality;
+        if ($decoratedItem->item->name !== self::NAME_AGED) {
+            if ($decoratedItem->item->name !== self::NAME_BACKSTAGE) {
+                if (($decoratedItem->item->quality > 0) && $decoratedItem->item->name !== self::NAME_SULFURAS) {
+                    --$decoratedItem->item->quality;
                 }
             } else {
-                $item->quality = 0;
+                $decoratedItem->item->quality = 0;
             }
-        } elseif ($item->quality < 50) {
-            ++$item->quality;
+        } elseif ($decoratedItem->item->quality < 50) {
+            ++$decoratedItem->item->quality;
         }
     }
 }
