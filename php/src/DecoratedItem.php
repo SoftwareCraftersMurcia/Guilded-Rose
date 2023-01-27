@@ -36,4 +36,19 @@ final class DecoratedItem
     {
         --$this->item->sellIn;
     }
+
+    public function isSulfuras(): bool
+    {
+        return $this->item->name === GildedRose::NAME_SULFURAS;
+    }
+
+    public function isBackstage(): bool
+    {
+        return $this->item->name === GildedRose::NAME_BACKSTAGE;
+    }
+
+    public function isAged(): bool
+    {
+        return $this->item->name === GildedRose::NAME_AGED;
+    }
 }
