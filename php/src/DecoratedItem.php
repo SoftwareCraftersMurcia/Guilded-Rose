@@ -6,6 +6,10 @@ namespace GildedRose;
 
 final class DecoratedItem
 {
+    private const NAME_SULFURAS = 'Sulfuras, Hand of Ragnaros';
+    private const NAME_BACKSTAGE = 'Backstage passes to a TAFKAL80ETC concert';
+    private const NAME_AGED = 'Aged Brie';
+
     public function __construct(
         public Item $item
     ) {
@@ -13,8 +17,8 @@ final class DecoratedItem
 
     public function isNotAgedNeitherBackstage(): bool
     {
-        return $this->item->name !== GildedRose::NAME_AGED
-            && $this->item->name !== GildedRose::NAME_BACKSTAGE;
+        return $this->item->name !== self::NAME_AGED
+            && $this->item->name !== self::NAME_BACKSTAGE;
     }
 
     public function decrementQuality(): void
@@ -39,16 +43,16 @@ final class DecoratedItem
 
     public function isSulfuras(): bool
     {
-        return $this->item->name === GildedRose::NAME_SULFURAS;
+        return $this->item->name === self::NAME_SULFURAS;
     }
 
     public function isBackstage(): bool
     {
-        return $this->item->name === GildedRose::NAME_BACKSTAGE;
+        return $this->item->name === self::NAME_BACKSTAGE;
     }
 
     public function isAged(): bool
     {
-        return $this->item->name === GildedRose::NAME_AGED;
+        return $this->item->name === self::NAME_AGED;
     }
 }

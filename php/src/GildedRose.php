@@ -6,10 +6,6 @@ namespace GildedRose;
 
 final class GildedRose
 {
-    public const NAME_SULFURAS = 'Sulfuras, Hand of Ragnaros';
-    public const NAME_BACKSTAGE = 'Backstage passes to a TAFKAL80ETC concert';
-    public const NAME_AGED = 'Aged Brie';
-
     /**
      * @param Item[] $items
      */
