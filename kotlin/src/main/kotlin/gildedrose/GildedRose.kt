@@ -8,9 +8,7 @@ class GildedRose(var items: Array<Item>) {
             val isAgedBrie = items[i].name == "Aged Brie"
             val isBackStage = items[i].name == "Backstage passes to a TAFKAL80ETC concert"
 
-            if (!isAgedBrie && !isBackStage) {
-                decreaseQuality(isSulfuras, items[i])
-            } else {
+            if (isAgedBrie || isBackStage) {
                 if (items[i].quality < 50) {
                     items[i].quality = items[i].quality + 1
 
@@ -24,6 +22,8 @@ class GildedRose(var items: Array<Item>) {
                         }
                     }
                 }
+            } else {
+                decreaseQuality(isSulfuras, items[i])
             }
 
             if (!isSulfuras) {
@@ -33,12 +33,10 @@ class GildedRose(var items: Array<Item>) {
             if (items[i].sellIn < 0) {
                 if (isAgedBrie) {
                     increaseQuality(items[i])
+                } else if (isBackStage) {
+                    items[i].quality = 0
                 } else {
-                    if (isBackStage) {
-                        items[i].quality = items[i].quality - items[i].quality
-                    } else {
-                        decreaseQuality(isSulfuras, items[i])
-                    }
+                    decreaseQuality(isSulfuras, items[i])
                 }
             }
         }
