@@ -6,10 +6,10 @@ namespace GildedRose;
 
 final class GildedRose
 {
-    const AGED_BRIE        = 'Aged Brie';
+    const AGED_BRIE = 'Aged Brie';
     const BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert';
-    const SULFURAS         = 'Sulfuras, Hand of Ragnaros';
-    const MAX_QUALITY                = 50;
+    const SULFURAS = 'Sulfuras, Hand of Ragnaros';
+    const MAX_QUALITY = 50;
     const MIN_QUALITY = 0;
 
     /**
@@ -47,10 +47,8 @@ final class GildedRose
 
             if ($item->sellIn < 0) {
                 if ($item->name != self::AGED_BRIE) {
-                    if ($item->name != self::BACKSTAGE_PASSES) {
-                        if ($item->quality > self::MIN_QUALITY) {
-                            $this->decreaseQualityToNonSulfurasItems($item);
-                        }
+                    if ($item->name != self::BACKSTAGE_PASSES && $item->quality > self::MIN_QUALITY) {
+                        $this->decreaseQualityToNonSulfurasItems($item);
                     } else {
                         $item->quality = $item->quality - $item->quality;
                     }
@@ -63,6 +61,7 @@ final class GildedRose
 
     /**
      * @param Item $item
+     *
      * @return void
      */
     public function increaseItemQualityByOne(Item $item): void
@@ -74,6 +73,7 @@ final class GildedRose
 
     /**
      * @param Item $item
+     *
      * @return void
      */
     public function decreaseQualityToNonSulfurasItems(Item $item): void
