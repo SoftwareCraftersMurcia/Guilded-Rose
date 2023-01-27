@@ -20,15 +20,11 @@ class GildedRose(var items: Array<Item>) {
 
                     if (isBackStage) {
                         if (items[i].sellIn < 11) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1
-                            }
+                            increaseQuality(i)
                         }
 
                         if (items[i].sellIn < 6) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1
-                            }
+                            increaseQuality(i)
                         }
                     }
                 }
@@ -50,11 +46,15 @@ class GildedRose(var items: Array<Item>) {
                         items[i].quality = items[i].quality - items[i].quality
                     }
                 } else {
-                    if (items[i].quality < 50) {
-                        items[i].quality = items[i].quality + 1
-                    }
+                    increaseQuality(i)
                 }
             }
+        }
+    }
+
+    private fun increaseQuality(i: Int) {
+        if (items[i].quality < 50) {
+            items[i].quality = items[i].quality + 1
         }
     }
 
