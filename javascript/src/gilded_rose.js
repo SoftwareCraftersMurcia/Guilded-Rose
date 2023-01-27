@@ -1,3 +1,5 @@
+const MAX_QUALITY = 50;
+
 class Shop {
   constructor(items = []) {
     this.items = items;
@@ -14,7 +16,7 @@ class Shop {
           }
         }
       } else {
-        if (this.items[i].quality < 50) {
+        if (this.items[i].quality < MAX_QUALITY) {
           this.items[i].quality = this.items[i].quality + 1;
           if (this.isBackStagePasses(this.items[i])) {
             this.updateQualityForBackstagePasses(this.items[i]);
@@ -37,7 +39,7 @@ class Shop {
               this.items[i].quality - this.items[i].quality;
           }
         } else {
-          if (this.items[i].quality < 50) {
+          if (this.items[i].quality < MAX_QUALITY) {
             this.items[i].quality = this.items[i].quality + 1;
           }
         }
