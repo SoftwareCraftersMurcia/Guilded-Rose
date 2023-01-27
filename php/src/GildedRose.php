@@ -44,17 +44,22 @@ final class GildedRose
         }
 
         if ($item->sellIn < 0) {
-            if ($item->name !== 'Aged Brie') {
-                if ($item->name !== 'Backstage passes to a TAFKAL80ETC concert') {
-                    if (($item->quality > 0) && $item->name !== 'Sulfuras, Hand of Ragnaros') {
-                        --$item->quality;
-                    }
-                } else {
-                    $item->quality = 0;
+            $this->negativeSellIn($item);
+        }
+    }
+
+    private function negativeSellIn(Item $item): void
+    {
+        if ($item->name !== 'Aged Brie') {
+            if ($item->name !== 'Backstage passes to a TAFKAL80ETC concert') {
+                if (($item->quality > 0) && $item->name !== 'Sulfuras, Hand of Ragnaros') {
+                    --$item->quality;
                 }
-            } elseif ($item->quality < 50) {
-                ++$item->quality;
+            } else {
+                $item->quality = 0;
             }
+        } elseif ($item->quality < 50) {
+            ++$item->quality;
         }
     }
 }
