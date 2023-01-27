@@ -23,7 +23,7 @@ final class GildedRose
 
     private function updateItemQuality(DecoratedItem $decoratedItem): void
     {
-        if ($decoratedItem->isNotAgedNeitherBackstage()) {
+        if (!$decoratedItem->isAged() && !$decoratedItem->isBackstage()) {
             if (($decoratedItem->item->quality > 0) && !$decoratedItem->isSulfuras()) {
                 $decoratedItem->decrementQuality();
             }

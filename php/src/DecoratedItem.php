@@ -15,12 +15,6 @@ final class DecoratedItem
     ) {
     }
 
-    public function isNotAgedNeitherBackstage(): bool
-    {
-        return $this->item->name !== self::NAME_AGED
-            && $this->item->name !== self::NAME_BACKSTAGE;
-    }
-
     public function decrementQuality(): void
     {
         --$this->item->quality;
