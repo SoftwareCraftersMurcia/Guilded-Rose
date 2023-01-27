@@ -10,4 +10,15 @@ final class DecoratedItem
         public Item $item
     ) {
     }
+
+    public function isNotAgedNeitherBackstage(): bool
+    {
+        return $this->item->name !== GildedRose::NAME_AGED
+            && $this->item->name !== GildedRose::NAME_BACKSTAGE;
+    }
+
+    public function decrementQuality(): void
+    {
+        --$this->item->quality;
+    }
 }

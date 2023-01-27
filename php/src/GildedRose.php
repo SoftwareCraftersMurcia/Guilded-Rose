@@ -6,9 +6,9 @@ namespace GildedRose;
 
 final class GildedRose
 {
-    private const NAME_SULFURAS = 'Sulfuras, Hand of Ragnaros';
-    private const NAME_BACKSTAGE = 'Backstage passes to a TAFKAL80ETC concert';
-    private const NAME_AGED = 'Aged Brie';
+    public const NAME_SULFURAS = 'Sulfuras, Hand of Ragnaros';
+    public const NAME_BACKSTAGE = 'Backstage passes to a TAFKAL80ETC concert';
+    public const NAME_AGED = 'Aged Brie';
 
     /**
      * @param Item[] $items
@@ -27,9 +27,9 @@ final class GildedRose
 
     private function updateItemQuality(DecoratedItem $decoratedItem): void
     {
-        if ($decoratedItem->item->name !== self::NAME_AGED && $decoratedItem->item->name !== self::NAME_BACKSTAGE) {
+        if ($decoratedItem->isNotAgedNeitherBackstage()) {
             if (($decoratedItem->item->quality > 0) && $decoratedItem->item->name !== self::NAME_SULFURAS) {
-                --$decoratedItem->item->quality;
+                $decoratedItem->decrementQuality();
             }
         } elseif ($decoratedItem->item->quality < 50) {
             ++$decoratedItem->item->quality;
