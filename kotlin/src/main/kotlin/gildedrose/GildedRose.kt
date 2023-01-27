@@ -4,9 +4,13 @@ class GildedRose(var items: Array<Item>) {
 
     fun updateQuality() {
         for (i in items.indices) {
-            if (items[i].name != "Aged Brie" && items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
+            val isNotSulfuras = items[i].name != "Sulfuras, Hand of Ragnaros"
+            val isNotAgedBrie = items[i].name != "Aged Brie"
+            val isNotBackStage = items[i].name != "Backstage passes to a TAFKAL80ETC concert"
+
+            if (isNotAgedBrie && isNotBackStage) {
                 if (items[i].quality > 0) {
-                    if (items[i].name != "Sulfuras, Hand of Ragnaros") {
+                    if (isNotSulfuras) {
                         items[i].quality = items[i].quality - 1
                     }
                 }
@@ -30,15 +34,15 @@ class GildedRose(var items: Array<Item>) {
                 }
             }
 
-            if (items[i].name != "Sulfuras, Hand of Ragnaros") {
+            if (isNotSulfuras) {
                 items[i].sellIn = items[i].sellIn - 1
             }
 
             if (items[i].sellIn < 0) {
-                if (items[i].name != "Aged Brie") {
-                    if (items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
+                if (isNotAgedBrie) {
+                    if (isNotBackStage) {
                         if (items[i].quality > 0) {
-                            if (items[i].name != "Sulfuras, Hand of Ragnaros") {
+                            if (isNotSulfuras) {
                                 items[i].quality = items[i].quality - 1
                             }
                         }
