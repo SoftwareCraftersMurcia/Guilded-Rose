@@ -21,4 +21,14 @@ final class DecoratedItem
     {
         --$this->item->quality;
     }
+
+    public function incrementQuality(): void
+    {
+        ++$this->item->quality;
+    }
+
+    public function resetQuality(): void
+    {
+        $this->item->quality = 0;
+    }
 }

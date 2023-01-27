@@ -32,13 +32,13 @@ final class GildedRose
                 $decoratedItem->decrementQuality();
             }
         } elseif ($decoratedItem->item->quality < 50) {
-            ++$decoratedItem->item->quality;
+            $decoratedItem->incrementQuality();
             if ($decoratedItem->item->name === self::NAME_BACKSTAGE) {
                 if (($decoratedItem->item->sellIn < 11) && $decoratedItem->item->quality < 50) {
-                    ++$decoratedItem->item->quality;
+                    $decoratedItem->incrementQuality();
                 }
                 if (($decoratedItem->item->sellIn < 6) && $decoratedItem->item->quality < 50) {
-                    ++$decoratedItem->item->quality;
+                    $decoratedItem->incrementQuality();
                 }
             }
         }
@@ -57,13 +57,13 @@ final class GildedRose
         if ($decoratedItem->item->name !== self::NAME_AGED) {
             if ($decoratedItem->item->name !== self::NAME_BACKSTAGE) {
                 if (($decoratedItem->item->quality > 0) && $decoratedItem->item->name !== self::NAME_SULFURAS) {
-                    --$decoratedItem->item->quality;
+                    $decoratedItem->decrementQuality();
                 }
             } else {
-                $decoratedItem->item->quality = 0;
+                $decoratedItem->resetQuality();
             }
         } elseif ($decoratedItem->item->quality < 50) {
-            ++$decoratedItem->item->quality;
+            $decoratedItem->incrementQuality();
         }
     }
 }
